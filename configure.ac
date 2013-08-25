@@ -61,6 +61,7 @@ if test x"$docdir" = x'${datarootdir}/doc/${PACKAGE_TARNAME}' ; then
 fi
 
 AC_CONFIG_FILES([Makefile
+t/Makefile
 linux/Makefile
 linux/x86-64/Makefile
 ])

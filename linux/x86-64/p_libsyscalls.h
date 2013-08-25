@@ -19,19 +19,56 @@
 
 # include <ux/cdefs.h>
 
-# define ENTRY_UX03(name) \
-	.text ; .globl name##$UX$2003  ; .type name,%function
+# include "p_callnums.h"
 
-# define END_UX03(name) \
-	.size name##$UX$2003,.-name##$UX$2003
-
-/* The SysV ABI specifies that errors are returned with a value between
- * between -1 and -4095, constituting -errno
+/* Linux is an ELF platform:
+ *   local labels are prefixed with 'L'
+ *   C-linkage symbols are not prefixed with an underscore
+ *
+ * On x86-64:
+ *   System call numbers are passed in %eax
+ *   Parameters are passed in %rdi, %rsi, %rdx, %r10, %r8 and %r9
+ *   The kernel destroys %rcx and %r10
+ *   The result is returned in %rax
+ *   Return values between -4095 and -1 are -errno
+ *   User calls pass parameters in %rdi, %rsi, %rdx, %rcx, %r8 and %r9
  */
-# define SET_ERRNO \
-	cmpq $-4095, %rax ; \
-	jae set_errno$UX$private
 
-# define SYS_sync                      162
+# define ENTRY(name) \
+	.text ; .globl name  ; .type name,@function ; .align 1<<4 ; name:
+# define END(name) \
+	.size name, .-name
+
+# define ENTRY_SUF(name, suffix)       ENTRY(name##suffix)
+# define END_SUF(name, suffix)         END(name##suffix)
+
+# define ENTRY_UX03(name)              ENTRY_SUF(name,$UX$2003)
+# define END_UX03(name)                END_SUF(name,$UX$2003)
+
+# define HANDLE_ERRNO \
+	cmpq $-4095, %rax ; \
+	jae .Lerrno ; \
+	.Lend:
+
+# define SYSCALL_PREAMBLE
+# define SYSCALL_POSTAMBLE \
+	.Lerrno: \
+	jmp .Lend ;
+
+# define PERFORM_SYSCALL0(name) \
+	movl $SYS_##name, %eax ; \
+	syscall
+# define PERFORM_SYSCALL1(name)        PERFORM_SYSCALL0(name)
+# define PERFORM_SYSCALL2(name)        PERFORM_SYSCALL0(name)
+# define PERFORM_SYSCALL3(name)        PERFORM_SYSCALL0(name)
+# define PERFORM_SYSCALL4(name) \
+	movq %rcx, %r10 ; \
+	PERFORM_SYSCALL0(name)
+# define PERFORM_SYSCALL5(name) \
+	movq %rcx, %r10 ; \
+	PERFORM_SYSCALL0(name)
+# define PERFORM_SYSCALL6(name) \
+	movq %rcx, %r10 ; \
+	PERFORM_SYSCALL0(name)
 
 #endif /*!P_LIBSYSCALLS_H_*/

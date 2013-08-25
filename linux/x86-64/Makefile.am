@@ -14,7 +14,7 @@
 
 noinst_LTLIBRARIES = libsyscalls.la
 
-libsyscalls_la_SOURCES = \
-	sync.S
+libsyscalls_la_SOURCES = p_libsyscalls.h p_callnums.h \
+	sync.S write.S
 
 libsyscalls_la_CPPFLAGS = @AM_CPPFLAGS@ @UX_CPPFLAGS@

@@ -6,14 +6,12 @@
 
 #if defined(__UX_linux__) && defined(__UX_x86_64__)
 
-ENTRY_UX03(sync)
+ENTRY_UX03(write)
 SYSCALL_PREAMBLE
-	mov SYS_sync,%eax
-	/* No parameters */
-	syscall
+	PERFORM_SYSCALL3(write)
 	HANDLE_ERRNO
 	ret
 SYSCALL_POSTAMBLE
-END_UX03(sync)
+END_UX03(write)
 
 #endif

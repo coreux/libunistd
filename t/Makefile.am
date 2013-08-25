@@ -11,21 +11,11 @@
 ##  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ##  See the License for the specific language governing permissions and
 ##  limitations under the License.
+##
 
-ACLOCAL_AMFLAGS = -I .
+AM_CPPFLAGS = @AM_CPPFLAGS@ @UX_CPPFLAGS@ -I${top_builddir} -I${top_srcdir}
 
-EXTRA_DIST = regen-acinclude.sh README test.pl
+LDADD = ${top_builddir}/libunistd.la
 
-SUBDIRS = linux . t
-
-noinst_LTLIBRARIES = libunistd.la
-
-libunistd_la_SOURCES = p_libunistd.h \
-	sync.c
-
-libunistd_la_LIBADD = \
-	linux/x86-64/libsyscalls.la
-
-libunistd_la_CPPFLAGS = @AM_CPPFLAGS@ @UX_CPPFLAGS@
-
-dist_doc_DATA = LICENSE-2.0
+noinst_PROGRAMS = \
+	write-1
