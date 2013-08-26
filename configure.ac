@@ -72,28 +72,31 @@ AC_SUBST([PERL])
 
 AC_CANONICAL_HOST
 
+case "$host_os" in
+	linux-*)
+		ux_kern=linux
+		;;
+	darwin1*)
+		ux_kern=darwin
+		;;
+	*)
+		ux_kern="$host_os"
+		;;
+esac
+AC_SUBST([ux_kern])
+case "$host_cpu" in
+	amd64|x86_64)
+		ux_arch=x86-64
+		;;
+	i[3456]86|ix86|x86)
+		ux_arch=x86
+		;;
+esac
+AC_SUBST([ux_arch])
+
 AC_DEFUN([UX_CHECK_SYSCALL],[
-	case "$host_os" in
-		linux-*)
-			kern=linux
-			;;
-		darwin1*)
-			kern=darwin
-			;;
-		*)
-			kern="$host_os"
-			;;
-	esac
-	case "$host_cpu" in
-		amd64|x86_64)
-			arch=x86-64
-			;;
-		i[3456]86|ix86|x86)
-			arch=x86
-			;;
-	esac
-	AC_MSG_CHECKING([for the $kern/$arch/$1])
-	if test -r "$srcdir/$kern/$arch/$1.c" || test -r "$srcdir/$kern/$arch/$1.S" ; then
+	AC_MSG_CHECKING([for the $ux_kern/$ux_arch/$1])
+	if test -r "$srcdir/$ux_kern/$ux_arch/$1.c" || test -r "$srcdir/$ux_kern/$ux_arch/$1.S" ; then
 		AC_MSG_RESULT([yes])
 		AC_DEFINE_UNQUOTED([HAVE_SYS_$1],[1],[Define if the $1 system call is present])
 	else

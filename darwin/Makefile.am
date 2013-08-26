@@ -12,4 +12,6 @@
 ##  See the License for the specific language governing permissions and
 ##  limitations under the License.
 
-SUBDIRS = x86-64
+DIST_SUBDIRS = x86-64
+
+SUBDIRS = @ux_arch@
