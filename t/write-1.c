@@ -4,6 +4,8 @@
 
 #include "../unistd.h"
 
+#include <errno.h>
+
 int
 main(int argc, char **argv)
 {
@@ -18,7 +20,7 @@ main(int argc, char **argv)
 	r = write(1, str, len);
 	if(r != (ssize_t) len)
 	{
-		return 1;
+		return errno;
 	}
 	return 0;
 }

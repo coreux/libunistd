@@ -63,6 +63,35 @@ fi
 AC_PATH_PROG([PERL], [perl], [perl])
 AC_SUBST([PERL])
 
+AC_CANONICAL_HOST
+
+AC_DEFUN([UX_CHECK_SYSCALL],[
+	case "$host_os" in
+		linux-*)
+			kern=linux
+			;;
+		*)
+			kern="$host_os"
+			;;
+	esac
+	case "$host_cpu" in
+		amd64|x86_64)
+			arch=x86-64
+			;;
+		i[3456]86|ix86|x86)
+			arch=x86
+			;;
+	esac
+	AC_MSG_CHECKING([for the $1 system call])
+	if test -r "$srcdir/$kern/$arch/$1.c" || test -r "$srcdir/$kern/$arch/$1.S" ; then
+		AC_MSG_RESULT([yes])
+		AC_DEFINE_UNQUOTED([HAVE_SYS_$1],[1],[Define if the $1 system call is present])
+	else
+		AC_MSG_RESULT([no])
+	fi
+])
+m4_include([syscalls.m4])
+
 AC_CONFIG_FILES([Makefile
 t/Makefile
 linux/Makefile

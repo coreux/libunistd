@@ -24,8 +24,12 @@ http://pubs.opengroup.org/onlinepubs/009695399/functions/sync.html
 
 #include "p_libunistd.h"
 
+#ifndef HAVE_SYS_sync
+
 void
 sync_ux2003(void)
 {
 	/* If there is no native system call, sync() is a no-op */
 }
+
+#endif

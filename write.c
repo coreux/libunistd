@@ -24,6 +24,8 @@ http://pubs.opengroup.org/onlinepubs/009695399/functions/write.html
 
 #include "p_libunistd.h"
 
+#ifndef HAVE_SYS_write
+
 ssize_t
 write_ux2003(int fd, const void *buf, size_t buflen)
 {
@@ -34,3 +36,5 @@ write_ux2003(int fd, const void *buf, size_t buflen)
 	errno = ENOSYS;
 	return -1;
 }
+
+#endif

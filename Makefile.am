@@ -16,7 +16,7 @@ ACLOCAL_AMFLAGS = -I .
 
 EXTRA_DIST = regen-acinclude.sh README \
 	test.pl tests.conf \
-	gen-syscalls.pl syscalls.conf
+	gen-syscalls.pl syscalls.conf syscalls.m4
 
 SUBDIRS = linux . t
 
