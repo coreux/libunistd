@@ -18,9 +18,9 @@
 # include "config.h"
 #endif
 
-#ifndef WITH_UX_ERRNO
-
 #include <ux/cdefs.h>
+
+#if !defined(WITH_UX_ERRNO) && defined(__UX_darwin__) && defined(__UX_x86_64__)
 
 #include <stdio.h>
 #include <errno.h>
