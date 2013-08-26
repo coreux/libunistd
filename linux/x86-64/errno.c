@@ -34,7 +34,7 @@ set_errno(int err)
 	int *p;
 	
 	p = __errno_location();
-	*p = -err;
+	*p = err;
 	return -1;
 }
 

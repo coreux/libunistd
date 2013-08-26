@@ -61,6 +61,7 @@
 	sub $0x10, %rsp ; \
 	mov %rdx, (%rsp) ; \
 	mov %rax, %rdi ; \
+	neg %rdi ; \
 	call set_errno$UX$private ; \
 	mov (%rsp), %rsp ; \
 	movq $-1, %rax ; \
