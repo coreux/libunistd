@@ -1,3 +1,5 @@
+/* Generated automatically by gen-syscalls.pl */
+
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
@@ -7,13 +9,11 @@
 #if defined(__UX_linux__) && defined(__UX_x86_64__)
 
 ENTRY_UX03(sync)
-SYSCALL_PREAMBLE
-	mov SYS_sync,%eax
-	/* No parameters */
-	syscall
+	SYSCALL_PREAMBLE
+	PERFORM_SYSCALL0(sync)
 	HANDLE_ERRNO
 	ret
-SYSCALL_POSTAMBLE
+	SYSCALL_POSTAMBLE
 END_UX03(sync)
 
 #endif

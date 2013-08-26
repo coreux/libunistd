@@ -12,9 +12,19 @@
 ##  See the License for the specific language governing permissions and
 ##  limitations under the License.
 
+EXTRA_DIST = syscalls.conf
+
 noinst_LTLIBRARIES = libsyscalls.la
 
 libsyscalls_la_SOURCES = p_libsyscalls.h p_callnums.h \
-	sync.S write.S
+	_exit.S access.S alarm.S chdir.S chown.S close.S dup.S dup2.S execve.S \
+	fchdir.S fchown.S fdatasync.S fork.S fsync.S ftruncate.S getcwd.S \
+	getegid.S geteuid.S getgid.S getgroups.S getpgid.S getpgrp.S getppid.S \
+	getsid.S getuid.S lchown.S link.S lseek.S pause.S pipe.S readlink.S \
+	rmdir.S setgid.S getpgid.S setregid.S setreuid.S setsid.S setuid.S \
+	symlink.S sync.S truncate.S unlink.S vfork.S write.S
 
 libsyscalls_la_CPPFLAGS = @AM_CPPFLAGS@ @UX_CPPFLAGS@
+
+p_callnums.h: ${srcdir}/syscalls.conf ${top_srcdir}/gen-syscalls.pl
+	${PERL} ${top_srcdir}/gen-syscalls.pl linux x86_64 < ${srcdir}/syscalls.conf

@@ -16,7 +16,7 @@ main(int argc, char **argv)
 
 	/* Write str to stdout */
 	r = write(1, str, len);
-	if(r != len)
+	if(r != (ssize_t) len)
 	{
 		return 1;
 	}

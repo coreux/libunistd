@@ -60,6 +60,9 @@ if test x"$docdir" = x'${datarootdir}/doc/${PACKAGE_TARNAME}' ; then
 	docdir='${datarootdir}/doc/ux'
 fi
 
+AC_PATH_PROG([PERL], [perl], [perl])
+AC_SUBST([PERL])
+
 AC_CONFIG_FILES([Makefile
 t/Makefile
 linux/Makefile

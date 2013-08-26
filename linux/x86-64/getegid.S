@@ -8,12 +8,12 @@
 
 #if defined(__UX_linux__) && defined(__UX_x86_64__)
 
-ENTRY_UX03(write)
+ENTRY_UX03(getegid)
 	SYSCALL_PREAMBLE
-	PERFORM_SYSCALL3(write)
+	PERFORM_SYSCALL0(getegid)
 	HANDLE_ERRNO
 	ret
 	SYSCALL_POSTAMBLE
-END_UX03(write)
+END_UX03(getegid)
 
 #endif

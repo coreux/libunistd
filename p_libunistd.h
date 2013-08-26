@@ -19,6 +19,8 @@
 
 # include <ux/cdefs.h>
 
+# include "errno.h"
+
 # include "fcntl.h"
 # include "signal.h"
 # include "ucontext.h"
@@ -40,5 +42,6 @@
 # include "sys/wait.h"
 
 void sync_ux2003(void) __UX_SYM03(sync) __UX_WEAK;
+ssize_t write_ux2003(int fd, const void *buf, size_t buflen) __UX_SYM03(write) __UX_WEAK;
 
 #endif /*!P_LIBERRNO_H_*/
