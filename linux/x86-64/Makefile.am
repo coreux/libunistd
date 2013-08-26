@@ -16,7 +16,7 @@ EXTRA_DIST = syscalls.conf
 
 noinst_LTLIBRARIES = libsyscalls.la
 
-libsyscalls_la_SOURCES = p_libsyscalls.h p_callnums.h \
+libsyscalls_la_SOURCES = p_libsyscalls.h p_callnums.h errno.c \
 	_exit.S access.S alarm.S chdir.S chown.S close.S dup.S dup2.S execve.S \
 	fchdir.S fchown.S fdatasync.S fork.S fsync.S ftruncate.S getcwd.S \
 	getegid.S geteuid.S getgid.S getgroups.S getpgid.S getpgrp.S getppid.S \

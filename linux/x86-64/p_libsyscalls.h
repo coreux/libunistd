@@ -45,6 +45,9 @@
 # define ENTRY_UX03(name)              ENTRY_SUF(name,$UX$2003)
 # define END_UX03(name)                END_SUF(name,$UX$2003)
 
+# define ENTRY_PRIVATE(name)           ENTRY_SUF(name,$UX$private)
+# define END_PRIVATE(name)             END_SUF(name,$UX$private)
+
 # define HANDLE_ERRNO \
 	cmpq $-4095, %rax ; \
 	jae .Lerrno ; \
@@ -53,6 +56,14 @@
 # define SYSCALL_PREAMBLE
 # define SYSCALL_POSTAMBLE \
 	.Lerrno: \
+	mov %rsp, %rdx ; \
+	and $0xfffffffffffffff0, %rsp ; \
+	sub $0x10, %rsp ; \
+	mov %rdx, (%rsp) ; \
+	mov %rax, %rdi ; \
+	call set_errno$UX$private ; \
+	mov (%rsp), %rsp ; \
+	movq $-1, %rax ; \
 	jmp .Lend ;
 
 # define PERFORM_SYSCALL0(name) \
