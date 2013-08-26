@@ -22,7 +22,7 @@
 # include "p_callnums.h"
 
 /* Darwin is an Mach-O platform:
- *   local labels are prefixed with 'L'
+ *   local labels are prefixed with '.'
  *   C-linkage symbols are prefixed with an underscore
  *
  * On x86-64:
