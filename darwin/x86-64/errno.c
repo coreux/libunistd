@@ -18,28 +18,24 @@
 # include "config.h"
 #endif
 
-#include "../unistd.h"
+#ifndef WITH_UX_ERRNO
 
+#include <ux/cdefs.h>
+
+#include <stdio.h>
 #include <errno.h>
 
-extern int dprintf(const char *fmt, ...);
+/* Provide an equivalent of set_errno$UX$private */
+int set_errno(int err) __UX_PRIVATE(set_errno);
 
 int
-main(int argc, char **argv)
+set_errno(int err)
 {
-	const char *str = "This is a test of write()\n";
-	size_t len = 26;
-	ssize_t r;
-
-	(void) argc;
-	(void) argv;
-
-	/* Write str to stdout */
-	r = write(1, str, len);
-	dprintf("r = %d, errno = %d\n", (int) r, (int) errno);
-	if(r != (ssize_t) len)
-	{
-		return errno;
-	}
-	return 0;
+	int *p;
+	
+	p = __error();
+	*p = err;
+	return -1;
 }
+
+#endif /* !WITH_UX_ERRNO */

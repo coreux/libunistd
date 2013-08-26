@@ -30,16 +30,18 @@ main(int argc, char **argv)
 	const char *str = "This is a test of write()\n";
 	size_t len = 26;
 	ssize_t r;
+	int e;
 
 	(void) argc;
 	(void) argv;
 
-	/* Write str to stdout */
-	r = write(1, str, len);
-	dprintf("r = %d, errno = %d\n", (int) r, (int) errno);
-	if(r != (ssize_t) len)
+	/* Write str to a bad file descriptor */
+	r = write(10, str, len);
+	e = errno;
+	dprintf("r = %ld, errno = %d (EBADF = %d)\n", (long) r, e, (int) EBADF);
+	if(r != -1 || e != EBADF)
 	{
-		return errno;
+		return 1;
 	}
 	return 0;
 }

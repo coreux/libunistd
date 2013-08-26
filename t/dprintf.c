@@ -18,28 +18,17 @@
 # include "config.h"
 #endif
 
-#include "../unistd.h"
-
-#include <errno.h>
-
-extern int dprintf(const char *fmt, ...);
+#include <stdio.h>
+#include <stdarg.h>
 
 int
-main(int argc, char **argv)
+dprintf(const char *fmt, ...)
 {
-	const char *str = "This is a test of write()\n";
-	size_t len = 26;
-	ssize_t r;
-
-	(void) argc;
-	(void) argv;
-
-	/* Write str to stdout */
-	r = write(1, str, len);
-	dprintf("r = %d, errno = %d\n", (int) r, (int) errno);
-	if(r != (ssize_t) len)
-	{
-		return errno;
-	}
-	return 0;
+	va_list ap;
+	int r;
+	
+	va_start(ap, fmt);
+	r = vfprintf(stderr, fmt, ap);
+	va_end(ap);
+	return r;
 }

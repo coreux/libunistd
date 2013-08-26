@@ -107,5 +107,8 @@ if($err)
 {
 	print $output "\n*** $err test" . ($err == 1 ? '' : 's') . " did not produce expected results.\n*** See tests.log for more information\n";
 }
-
+else
+{
+	print $output "\nAll tests produced expected results.\n"
+}
 exit $err ? 1 : 0;

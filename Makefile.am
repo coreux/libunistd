@@ -16,9 +16,9 @@ ACLOCAL_AMFLAGS = -I .
 
 EXTRA_DIST = regen-acinclude.sh README \
 	test.pl tests.conf \
-	gen-syscalls.pl syscalls.conf syscalls.m4
+	gen-syscalls.pl syscalls.conf syscalls.m4 syscall-nums.h
 
-SUBDIRS = stubs linux . t
+SUBDIRS = stubs darwin linux . t
 
 noinst_LTLIBRARIES = libunistd.la
 
@@ -27,7 +27,8 @@ libunistd_la_SOURCES = p_libunistd.h \
 
 libunistd_la_LIBADD = \
 	stubs/libstubs.la \
-	linux/x86-64/libsyscalls.la
+	linux/x86-64/libsyscalls.la \
+	darwin/x86-64/libsyscalls.la
 
 libunistd_la_CPPFLAGS = @AM_CPPFLAGS@ @UX_CPPFLAGS@
 
@@ -39,3 +40,7 @@ tests: all
 # Maintainer rule for regenerating syscalls.m4 from the master syscalls.conf
 syscalls.m4: syscalls.conf
 	( for i in `egrep '^[a-z_]' syscalls.conf | cut -f1 -d' '` ; do echo "UX_CHECK_SYSCALL([$$i])" ; done ) > syscalls.m4
+
+# Maintainer rule for regenerating syscall-nums from the master syscalls.conf
+syscall-nums.h: syscalls.conf
+	( echo '#include <sys/syscall.h>' ; for i in `egrep '^[a-z_]' syscalls.conf | cut -f1 -d' '` ; do echo "/*SYS_$$i*/ $$i = SYS_$$i;" ; done ) > syscall-nums.h

@@ -55,6 +55,13 @@ CPPFLAGS="$UX_CPPFLAGS"
 AC_CHECK_HEADER([ux/cdefs.h],,[AC_MSG_ERROR([cannot locate required ux/cdefs.h; ensure the UX include package is installed])],[-])
 CPPFLAGS="$old_CPPFLAGS"
 
+CPPFLAGS="$UX_CPPFLAGS"
+AC_CHECK_HEADER([errno.h],,[AC_MSG_ERROR([cannot locate required errno.h])],[-])
+AC_CHECK_DECL([__ux_get_errno],[
+  AC_DEFINE_UNQUOTED([WITH_UX_ERRNO],[1],[Define if using UX errno.h])
+],,[#include <errno.h>])
+CPPFLAGS="$old_CPPFLAGS"
+
 # Override docdir
 if test x"$docdir" = x'${datarootdir}/doc/${PACKAGE_TARNAME}' ; then
 	docdir='${datarootdir}/doc/ux'
@@ -70,6 +77,9 @@ AC_DEFUN([UX_CHECK_SYSCALL],[
 		linux-*)
 			kern=linux
 			;;
+		darwin1*)
+			kern=darwin
+			;;
 		*)
 			kern="$host_os"
 			;;
@@ -82,7 +92,7 @@ AC_DEFUN([UX_CHECK_SYSCALL],[
 			arch=x86
 			;;
 	esac
-	AC_MSG_CHECKING([for the $1 system call])
+	AC_MSG_CHECKING([for the $kern/$arch/$1])
 	if test -r "$srcdir/$kern/$arch/$1.c" || test -r "$srcdir/$kern/$arch/$1.S" ; then
 		AC_MSG_RESULT([yes])
 		AC_DEFINE_UNQUOTED([HAVE_SYS_$1],[1],[Define if the $1 system call is present])
@@ -97,6 +107,8 @@ t/Makefile
 stubs/Makefile
 linux/Makefile
 linux/x86-64/Makefile
+darwin/Makefile
+darwin/x86-64/Makefile
 ])
 
 AC_OUTPUT
