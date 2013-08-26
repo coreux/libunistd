@@ -41,7 +41,16 @@
 # include "sys/utsname.h"
 # include "sys/wait.h"
 
+extern char *optarg_ux2003 __UX_SYM03(optarg);
+extern int optind_ux2003 __UX_SYM03(optind);
+extern int opterr_ux2003 __UX_SYM03(opterr);
+extern int optopt_ux2003 __UX_SYM03(optopt);
+
+int access_ux2003(const char *path, int amode) __UX_SYM03(access) __UX_WEAK;
+unsigned alarm_ux2003(unsigned seconds) __UX_SYM03(alarm) __UX_WEAK;
+
 void sync_ux2003(void) __UX_SYM03(sync) __UX_WEAK;
+
 ssize_t write_ux2003(int fd, const void *buf, size_t buflen) __UX_SYM03(write) __UX_WEAK;
 
 #endif /*!P_LIBERRNO_H_*/

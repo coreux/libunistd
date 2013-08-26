@@ -15,7 +15,7 @@
  */
 
 /*
-http://pubs.opengroup.org/onlinepubs/009695399/functions/write.html
+http://pubs.opengroup.org/onlinepubs/009695399/functions/sync.html
 */
 
 #ifdef HAVE_CONFIG_H
@@ -24,17 +24,14 @@ http://pubs.opengroup.org/onlinepubs/009695399/functions/write.html
 
 #include "p_libunistd.h"
 
-#ifndef HAVE_SYS_write
+#ifndef HAVE_SYS_alarm
 
-ssize_t
-write_ux2003(int fd, const void *buf, size_t buflen)
+unsigned
+alarm_ux2003(unsigned seconds)
 {
-	(void) fd;
-	(void) buf;
-	(void) buflen;
+	__UX_UNUSED(seconds);
 	
-	errno = ENOSYS;
-	return -1;
+	return 0;
 }
 
 #endif

@@ -94,6 +94,7 @@ m4_include([syscalls.m4])
 
 AC_CONFIG_FILES([Makefile
 t/Makefile
+stubs/Makefile
 linux/Makefile
 linux/x86-64/Makefile
 ])

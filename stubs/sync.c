@@ -29,7 +29,6 @@ http://pubs.opengroup.org/onlinepubs/009695399/functions/sync.html
 void
 sync_ux2003(void)
 {
-	/* If there is no native system call, sync() is a no-op */
 }
 
 #endif
