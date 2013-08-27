@@ -14,4 +14,4 @@
 
 subincludedir = $(includedir)/ux/linux
 
-subinclude_HEADERS = unistd.h
+subinclude_HEADERS = fcntl.h unistd.h
