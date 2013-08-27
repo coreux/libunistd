@@ -46,9 +46,14 @@ main(int argc, char **argv)
 	r = write(fd, str, len);
 	if(r != (ssize_t) len)
 	{
-		dprintf("r = %d, errno = %d\n", (int) r, (int) errno);
+		dprintf("write: r = %d, errno = %d\n", (int) r, (int) errno);
 		return errno;
 	}
-	close(fd);	
+	r = close(fd);
+	if(r)
+	{
+		dprintf("close: r = %d, errno = %d\n", (int) r, (int) errno);
+		return errno;
+	}	
 	return 0;
 }
