@@ -117,7 +117,8 @@ int access(const char *path, int amode) __UX_SYM03(access);
 unsigned alarm(unsigned seconds) __UX_SYM03(alarm);
 int chdir(const char *) __UX_SYM03(chdir);
 int chown(const char *, uid_t, gid_t) __UX_SYM03(chown);
-int close(int) __UX_SYM03(close);
+/* close an existing file descriptor */
+int close(int fd) __UX_SYM03(close);
 size_t confstr(int, char *, size_t) __UX_SYM03(confstr);
 # if _XOPEN_SOURCE >= 600
 char *crypt(const char *, const char *) __UX_SYM03(crypt);
@@ -226,7 +227,8 @@ int ttyname_r(int, char *, size_t) __UX_SYM03(ttyname_r);
 # if _XOPEN_SOURCE >= 600
 useconds_t ualarm(useconds_t, useconds_t) __UX_SYM03(ualarm);
 # endif
-int unlink(const char *) __UX_SYM03(unlink);
+/* remove a directory entry */
+int unlink(const char *pathname) __UX_SYM03(unlink);
 # if _XOPEN_SOURCE >= 600
 int usleep(useconds_t) __UX_SYM03(usleep);
 pid_t vfork(void) __UX_SYM03(vfork);
