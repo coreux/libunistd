@@ -49,7 +49,13 @@ extern int optopt_ux2003 __UX_SYM03(optopt);
 int access_ux2003(const char *path, int amode) __UX_SYM03(access) __UX_WEAK;
 unsigned alarm_ux2003(unsigned seconds) __UX_SYM03(alarm) __UX_WEAK;
 
+int close_ux2003(int fd) __UX_SYM03(close) __UX_WEAK;
+
+int open_ux2003(const char *pathname, int oflag, ...) __UX_SYM03(open) __UX_WEAK;
+
 void sync_ux2003(void) __UX_SYM03(sync) __UX_WEAK;
+
+int unlink_ux2003(const char *pathname) __UX_SYM03(unlink) __UX_WEAK;
 
 ssize_t write_ux2003(int fd, const void *buf, size_t buflen) __UX_SYM03(write) __UX_WEAK;
 
