@@ -29,6 +29,14 @@ http://pubs.opengroup.org/onlinepubs/009695399/basedefs/fcntl.h.html
 #  include <unistd.h>
 # endif
 
+# if defined(__UX_darwin__)
+#  include <ux/darwin/fcntl.h>
+# elif defined(__UX_linux__)
+#  include <ux/linux/fcntl.h>
+# else
+#  error Unsupported host kernel
+# endif
+
 /* fcntl() cmd values */
 
 /* fcntl() file descriptor flags */
