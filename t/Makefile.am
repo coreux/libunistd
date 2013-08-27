@@ -18,7 +18,7 @@ AM_CPPFLAGS = @AM_CPPFLAGS@ @UX_CPPFLAGS@ -I${top_builddir} -I${top_srcdir}
 LDADD = libutil.la ${top_builddir}/libunistd.la
 
 noinst_PROGRAMS = \
-	write-1 write-2
+	write-1 write-2 open-1 unlink-1
 
 noinst_LTLIBRARIES = libutil.la
 

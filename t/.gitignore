@@ -1,2 +1,6 @@
+*.out
 /write-1
 /write-2
+/open-1
+/open-2
+/unlink-1
