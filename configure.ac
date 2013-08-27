@@ -115,3 +115,11 @@ darwin/x86-64/Makefile
 ])
 
 AC_OUTPUT
+
+case "$ux_kern" in
+	darwin)
+		AC_MSG_WARN([the system call interface between Darwin user-space and the XNU kernel is subject to change by Apple at any point, including minor releases, and should be considered unstable.])
+		;;
+esac
+
+	
