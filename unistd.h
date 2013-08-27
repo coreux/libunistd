@@ -24,6 +24,14 @@ http://pubs.opengroup.org/onlinepubs/009695399/basedefs/unistd.h.html
 # include <ux/cdefs.h>
 # include <ux/features.h>
 
+# if defined(__UX_darwin__)
+#  include <ux/darwin/unistd.h>
+# elif defined(__UX_linux__)
+#  include <ux/linux/unistd.h>
+# else
+#  error Unsupported host kernel
+# endif
+
 /* version test macros */
 
 # define _POSIX_VERSION                __UX_POSIX_VERSION
@@ -39,6 +47,17 @@ http://pubs.opengroup.org/onlinepubs/009695399/basedefs/unistd.h.html
 # include <ux/const/null.h>
 
 /* symbolic constants for use with access() */
+
+# ifndef F_OK
+/* test for existence of file */
+#  define F_OK                         0
+/* test for execute permission */
+#  define X_OK                         (1<<0)
+/* test for write permission */
+#  define W_OK                         (1<<1)
+/* test for read permission */
+#  define R_OK                         (1<<2)
+# endif
 
 /* symbolic constants for use with confstr() */
 

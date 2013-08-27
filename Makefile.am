@@ -18,9 +18,9 @@ EXTRA_DIST = regen-acinclude.sh README \
 	test.pl tests.conf \
 	gen-syscalls.pl syscalls.conf syscalls.m4 syscall-nums.h
 
-DIST_SUBDIRS = t stubs darwin linux
+DIST_SUBDIRS = ux t stubs darwin linux
 
-SUBDIRS = stubs @ux_kern@ . t
+SUBDIRS = ux stubs @ux_kern@ . t
 
 noinst_LTLIBRARIES = libunistd.la
 
