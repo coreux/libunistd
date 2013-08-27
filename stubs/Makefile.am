@@ -16,6 +16,9 @@ noinst_LTLIBRARIES = libstubs.la
 
 libstubs_la_SOURCES = \
 	access.c alarm.c \
+	close.c \
+	open.c \
+	unlink.c \
 	sync.c write.c
 
 libstubs_la_CPPFLAGS = @AM_CPPFLAGS@ @UX_CPPFLAGS@
